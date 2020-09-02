@@ -4,6 +4,10 @@
 /**
  * Hydrate input array struct into an object
  *
+ * <examples>
+ * $obj = phore_hydrator($arrayInput, TargetClass::class);
+ * </examples>
+ *
  * @param $input
  * @param string $targetClassName
  * @param bool $strict
