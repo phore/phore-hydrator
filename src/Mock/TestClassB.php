@@ -16,4 +16,8 @@ class TestClassB
      * @var int
      */
     public $propB;
+
+    public $probC = [];
+
+    public $probD = null;
 }

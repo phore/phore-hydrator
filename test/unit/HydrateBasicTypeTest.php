@@ -3,7 +3,7 @@
 
 namespace test;
 
-use Phore\Hydrator\Helper\PhoreTypeParser;
+use Phore\Hydrator\PhoreHydrator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,17 +14,28 @@ use PHPUnit\Framework\TestCase;
 class HydrateBasicTypeTest extends TestCase
 {
 
+    public function testDefaultTypeIsString()
+    {
+        $h = new PhoreHydrator();
+        self::assertEquals("a", $h->hydrate("a"));
+    }
+
+    public function testNullableBasicType()
+    {
+        $h = new PhoreHydrator("string|null");
+        self::assertEquals(null, $h->hydrate(null));
+    }
 
     public function testBasicTypeString()
     {
-        $h = new PhoreTypeParser("string");
-        self::assertEquals("a", $h->convert("a"));
+        $h = new PhoreHydrator("string");
+        self::assertEquals("a", $h->hydrate("a"));
     }
 
     public function testBasicTypeStringArray()
     {
-        $h = new PhoreTypeParser("string[]");
-        self::assertEquals(["a"], $h->convert(["a"]));
+        $h = new PhoreHydrator("string[]");
+        self::assertEquals(["a"], $h->hydrate(["a"]));
     }
 
 }
