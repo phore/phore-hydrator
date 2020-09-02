@@ -1,0 +1,25 @@
+{
+  "name": "phore/hydrator",
+  "description": "Unserialize arrays into object structure",
+  "license": "MIT",
+  "authors": [
+    { "name": "Matthias Leuffen", "email": "m@tth.es" }
+  ],
+  "repositories": [
+  ],
+  "require": {
+    "php": ">=7.2",
+    "phore/core": "*"
+  },
+  "suggest": {
+  },
+  "autoload": {
+    "psr-4": {
+      "Phore\\Hydrator\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "require-dev": {
+    "phpunit/phpunit": "*"
+  }
+}
