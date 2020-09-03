@@ -5,18 +5,20 @@
   "authors": [
     { "name": "Matthias Leuffen", "email": "m@tth.es" }
   ],
-  "repositories": [
-  ],
   "require": {
     "php": ">=7.2",
     "phore/core": "*"
   },
+
   "suggest": {
   },
   "autoload": {
     "psr-4": {
       "Phore\\Hydrator\\": "src/"
-    }
+    },
+    "files": [
+      "src/functions.php"
+    ]
   },
   "minimum-stability": "dev",
   "require-dev": {
