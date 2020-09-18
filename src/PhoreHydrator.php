@@ -64,8 +64,6 @@ class PhoreHydrator
     private function getTypeFromDocComment(string $docComment, \ReflectionClass $currentClassReflection) : ?HydratorTargetType
     {
         $type = phore_parse_annotation($docComment, "@var");
-        if ($type === null)
-            return null;
         return HydratorTargetType::FromString($type, $currentClassReflection);
     }
 
