@@ -54,6 +54,8 @@ class PhoreHydrator
                 return (bool)$input;
             case "float":
                 return (float)$input;
+            case "array":
+                return (array)$input;
             case "mixed":
                 return $input;
             default:
