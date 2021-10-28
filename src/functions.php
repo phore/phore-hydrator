@@ -8,10 +8,11 @@
  * $obj = phore_hydrator($arrayInput, TargetClass::class);
  * </examples>
  *
+ * @template T
  * @param $input
- * @param string $targetClassName
+ * @param class-string<T> $targetClassName
  * @param bool $strict
- * @return array|bool|float|int|object|string|null
+ * @return T
  * @throws \Phore\Hydrator\Ex\HydratorInputDataException
  * @throws \Phore\Hydrator\Ex\InvalidStructureException
  */
