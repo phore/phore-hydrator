@@ -142,7 +142,7 @@ class PhoreHydrator
 
             if ( ! array_key_exists($curPropName, $input)) {
                 // Check default Properties. If they exist: Ignore the missing property
-                if ($defaultProperties[$prop->getName()] !== null)
+                if (isset ($defaultProperties[$prop->getName()]))
                     continue;
 
                 if ( ! $targetType->isNullable)

@@ -6,6 +6,7 @@ namespace Phore\Hydrator\Ex;
 
 class InvalidStructureException extends HydratorInputDataException
 {
+
     public function __construct(array $path=[], $expected=null, $found=null)
     {
         $message = "Invalid input data at ";
