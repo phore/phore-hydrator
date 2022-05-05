@@ -11,6 +11,7 @@ class HydratorTargetType
     public $type;
     public $isNullable;
     public $isArray;
+    public $isMap;
     public $isObject;
 
 
@@ -35,6 +36,11 @@ class HydratorTargetType
         if (endsWith($typeDef, "[]")) {
             $t->isArray = true;
             $typeDef = $t->type = substr($typeDef, 0, -2);
+        }
+        
+        if (startsWith($typeDef, "array<string,")) {
+            $t->isMap = true;
+            $typeDef = $t->type = trim(substr($typeDef, 13, -1));
         }
 
         if ( ! in_array($typeDef, self::INTERNAL_TYPES)) {

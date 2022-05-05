@@ -202,6 +202,21 @@ class PhoreHydrator
             return $ret;
         }
 
+        if ($this->type->isMap) {
+            $ret = [];
+            if ( ! is_array($input))
+                throw new InvalidStructureException($path, "array<string, T>", $input);
+            $subtype = new self(HydratorTargetType::FromString($this->type->type));
+            foreach ($input as $key => $row) {
+                $curPath = $path;
+                $curPath[] = $key;
+                if ($this->options["strict_arrays"] && ! is_string($key))
+                    throw new InvalidStructureException($path, "array<string, {$this->type->type}>", null,"invalid key: '$key' (strict_arrays: true)");
+                $ret[$key] = $subtype->convert($row, $curPath, $errors);
+            }
+            return $ret;
+        }
+        
         if ( ! class_exists($this->type->type))
             throw new \InvalidArgumentException("Class '{$this->type->type}' does not exist. (Path: " . $this->getPathStr($path) . "')");
 
