@@ -119,8 +119,8 @@ class PhoreHydrator
 
         if ( ! is_array($input)) {
             // Return null if input data is not a valid array
-
-            throw new InvalidStructureException($path, $ref->getName(), $input);
+           
+            throw new InvalidStructureException($path, $ref->getName() , $input);
         }
 
         if ($ref->hasMethod("__hydrate") && $ref->getMethod("__hydrate")->isPublic()) {
@@ -196,7 +196,7 @@ class PhoreHydrator
                 $curPath = $path;
                 $curPath[] = $key;
                 if ($this->options["strict_arrays"] && ! is_int($key))
-                    throw new InvalidStructureException($path, "array", "map/invalid key: '$key'");
+                    throw new InvalidStructureException($path, "array", null,"map/invalid key: '$key' (strict_arrays: true)");
                 $ret[] = $subtype->convert($row, $curPath, $errors);
             }
             return $ret;
