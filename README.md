@@ -22,6 +22,12 @@ class UserData {
     public $name;
     
     /**
+    * Assoc Array 
+    * @var array<string, string> 
+    */
+    public $map;
+    
+    /**
      * @var int
      */
     public $age;
