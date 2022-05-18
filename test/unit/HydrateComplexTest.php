@@ -32,10 +32,11 @@ class Com1TestClass1 {
      */
     public $p3;
 
+
     /**
-     * @var Com1TestClass2[]
+     * @var array<string, Com1TestClass2>
      */
-    public $p4 = [];
+    public $map1;
 }
 
 /**
@@ -104,6 +105,7 @@ class HydrateComplexTest extends TestCase
         $ret = phore_hydrate($input, Com1TestClass1::class);
         print_r($ret);
     }
+
 
 
 

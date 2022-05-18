@@ -23,7 +23,7 @@ class UserData {
     
     /**
     * Assoc Array 
-    * @var array<string, string> 
+    * @var array<string, ClassType2> 
     */
     public $map;
     

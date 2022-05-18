@@ -45,6 +45,8 @@ class PhoreHydrator
 
     private function getInternalVal($input)
     {
+        if ($this->type->isNullable && $input === null)
+            return null;
         switch ($this->type->type) {
             case "string":
                 return (string)$input;
@@ -119,7 +121,7 @@ class PhoreHydrator
 
         if ( ! is_array($input)) {
             // Return null if input data is not a valid array
-           
+
             throw new InvalidStructureException($path, $ref->getName() , $input);
         }
 
@@ -216,7 +218,7 @@ class PhoreHydrator
             }
             return $ret;
         }
-        
+
         if ( ! class_exists($this->type->type))
             throw new \InvalidArgumentException("Class '{$this->type->type}' does not exist. (Path: " . $this->getPathStr($path) . "')");
 
