@@ -23,7 +23,7 @@ function phore_hydrate ($input, string $targetClassName, bool $strict = true) {
 
 /**
  * Dehydrate based on the file extension (yaml, yml or json)
- * 
+ *
  * @param $inputFile
  * @param string $targetClassName
  * @param bool $strict
@@ -33,7 +33,7 @@ function phore_hydrate_file ($inputFile, string $targetClassName, bool $strict =
     $data = file_get_contents($inputFile);
     if ($data === false)
         throw new \InvalidArgumentException("Cannot read file '$inputFile'");
-    
+
     // Check file extension: json or yaml|yml
     $ext = strtolower(pathinfo($inputFile, PATHINFO_EXTENSION));
     if ($ext === "json") {
@@ -47,8 +47,8 @@ function phore_hydrate_file ($inputFile, string $targetClassName, bool $strict =
     } else {
         throw new \InvalidArgumentException("Cannot decode file '$inputFile': Unknown file extension '$ext'");
     }
-    
-    
+
+
     $hydrator = new \Phore\Hydrator\PhoreHydrator($targetClassName);
     try {
         return $hydrator->hydrate($input, $strict);
@@ -57,5 +57,40 @@ function phore_hydrate_file ($inputFile, string $targetClassName, bool $strict =
     } catch (\Phore\Hydrator\Ex\InvalidStructureException $e) {
         throw new \InvalidArgumentException("Cannot hydrate file '$inputFile': " . $e->getMessage(), 0, $e);
     }
-    
+
 }
+
+
+/**
+ * Convert objects to arrays
+ *
+ * @param mixed $input
+ * @return array
+ */
+function phore_dehydrate(mixed $input) : array {
+
+    if ( ! is_object($input) && ! is_array($input))
+        return $input;
+
+    $result = (array) $input;
+
+    // Iterate over each element of the array
+    foreach ($result as $key => $value) {
+        // If the value is an object, recursively call this function
+        if (is_object($value)) {
+            $result[$key] = phore_dehydrate($value);
+        } elseif (is_array($value)) {
+            // If the value is an array, iterate over its elements
+            foreach ($value as $subKey => $subValue) {
+                // If the element is an object, recursively call this function
+                if (is_object($subValue)) {
+                    $value[$subKey] = phore_dehydrate($subValue);
+                }
+            }
+            $result[$key] = $value;
+        }
+    }
+
+    return $result;
+}
+
