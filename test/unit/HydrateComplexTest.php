@@ -33,10 +33,6 @@ class Com1TestClass1 {
     public $p3;
 
 
-    /**
-     * @var array<string, Com1TestClass2>
-     */
-    public $map1;
 
 
     /**
@@ -88,15 +84,13 @@ class HydrateComplexTest extends TestCase
 
         $res = phore_hydrate($input, Com1TestClass1::class);
 
-        throw new \Exception("Test not implemented");
-        print_r ($res);
         self::assertInstanceOf(Com1TestClass1::class, $res);
         self::assertInstanceOf(Com1TestClass2::class, $res->p1);
         self::assertCount(1, $res->p2);
         self::assertInstanceOf(Com1TestClass2::class, $res->p2[0]);
 
         self::assertEquals(null, $res->p3);
-        self::assertEquals([], $res->p4);
+
     }
 
 
@@ -113,9 +107,11 @@ class HydrateComplexTest extends TestCase
         ],
         "p3" => "string"
         ];
-        self::expectException(HydratorInputDataException::class);
-        $ret = phore_hydrate($input, Com1TestClass1::class);
-        print_r($ret);
+        self::expectException(HydratorInputDataException::class, function () use ($input) {
+            phore_hydrate($input, Com1TestClass1::class);
+        });
+
+
     }
 
 

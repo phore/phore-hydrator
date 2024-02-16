@@ -17,6 +17,7 @@ class HydratorTargetType
 
     public static function FromString(string $typeDef=null, \ReflectionClass $reflectionClass=null) : self
     {
+
         $t = new self();
         if (empty($typeDef))
             $typeDef = "string"; // Default is string
@@ -37,10 +38,11 @@ class HydratorTargetType
             $t->isArray = true;
             $typeDef = $t->type = substr($typeDef, 0, -2);
         }
-        
+
         if (startsWith($typeDef, "array<string,")) {
             $t->isMap = true;
             $typeDef = $t->type = trim(substr($typeDef, 13, -1));
+
         }
 
         if ( ! in_array($typeDef, self::INTERNAL_TYPES)) {

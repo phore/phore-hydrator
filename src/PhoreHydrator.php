@@ -37,6 +37,7 @@ class PhoreHydrator
      */
     public function __construct($targetType=null)
     {
+
         if ( ! $targetType instanceof HydratorTargetType)
             $targetType = HydratorTargetType::FromString($targetType);
         $this->type = $targetType;
@@ -147,8 +148,13 @@ class PhoreHydrator
                 if (isset ($defaultProperties[$prop->getName()]))
                     continue;
 
+                $typeString = $targetType->type;
+                if ($targetType->isMap)
+                    $typeString = "array<string, {$targetType->type}>";
+                if ($targetType->isArray)
+                    $typeString = "{$targetType->type}[]";
                 if ( ! $targetType->isNullable)
-                    throw new InvalidStructureException($curPath, $targetType->type, null);
+                    throw new InvalidStructureException($curPath, $typeString, null);
                 continue;
             }
             $subPropTypeParser = new self($targetType);
@@ -185,7 +191,7 @@ class PhoreHydrator
 
     public function convert($input, array $path, array &$errors)
     {
-        if ( ! $this->type->isObject && ! $this->type->isArray) {
+        if ( ! $this->type->isObject && ! $this->type->isArray && ! $this->type->isMap) {
             return $this->getInternalVal($input);
         }
 
@@ -205,6 +211,7 @@ class PhoreHydrator
         }
 
         if ($this->type->isMap) {
+
             $ret = [];
             if ( ! is_array($input))
                 throw new InvalidStructureException($path, "array<string, T>", $input);
