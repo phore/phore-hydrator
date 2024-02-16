@@ -37,6 +37,12 @@ class Com1TestClass1 {
      * @var array<string, Com1TestClass2>
      */
     public $map1;
+
+
+    /**
+     * @var array<string, string>
+     */
+    public $map2;
 }
 
 /**
@@ -72,12 +78,18 @@ class HydrateComplexTest extends TestCase
                 [
                     "val" => "v2"
                 ]
+            ],
+            "map2" => [
+                "key1" => "val1",
+                "key2" => "val2"
             ]
         ];
 
 
         $res = phore_hydrate($input, Com1TestClass1::class);
 
+        throw new \Exception("Test not implemented");
+        print_r ($res);
         self::assertInstanceOf(Com1TestClass1::class, $res);
         self::assertInstanceOf(Com1TestClass2::class, $res->p1);
         self::assertCount(1, $res->p2);
