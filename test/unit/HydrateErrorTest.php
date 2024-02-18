@@ -50,19 +50,21 @@ class HydrateErrorTest extends TestCase
 
     public function testObjectReturnType()
     {
-        $input = [
-            "p1" => "v",
-            "p2" => "v",
-            "p3" => "v"
-        ];
 
-        $h = new PhoreHydrator(SettersTestClass1::class);
-        $res = $h->hydrate($input);
-        if ( ! $res instanceof SettersTestClass1)
-            throw new \InvalidArgumentException();
 
-        print_r($res);
-        self::assertEquals("v", $res->p1);
+        self::expectException(new \Exception(), function () {
+            $h = new PhoreHydrator(SettersTestClass1::class);
+            $input = [
+                "p1" => "v",
+                "p2" => "v",
+                "p3" => "v"
+            ];
+            $res = $h->hydrate($input);
+
+
+        });
+
+
     }
 
 

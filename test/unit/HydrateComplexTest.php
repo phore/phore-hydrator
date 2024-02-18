@@ -76,8 +76,8 @@ class HydrateComplexTest extends TestCase
                 ]
             ],
             "map2" => [
-                "key1" => "val1",
-                "key2" => "val2"
+                "1" => "val1",
+                "2" => "val2"
             ]
         ];
 

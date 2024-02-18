@@ -45,7 +45,7 @@ class HydrateRecursionDetectionTest extends TestCase
 
         $h = new PhoreHydrator(HydrateRecursionDetectionTestClass1::class);
         $res = $h->hydrate($input);
-        print_r ($res);
+
     }
 
 
