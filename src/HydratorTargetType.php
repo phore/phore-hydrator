@@ -41,7 +41,7 @@ class HydratorTargetType
 
         if (startsWith($typeDef, "array<string,")) {
             $t->isMap = true;
-            $typeDef = $t->type = trim(substr($typeDef, 13, -1));
+            $typeDef = $t->type = trim(substr(trim($typeDef), 13, -1));
 
         }
 

@@ -44,12 +44,14 @@ class PhoreHydrator
     }
 
 
-    private function getInternalVal($input)
+    private function getInternalVal($input, array $path)
     {
         if ($this->type->isNullable && $input === null)
             return null;
         switch ($this->type->type) {
             case "string":
+                if ( ! is_scalar($input) && $input !== null)
+                    throw new InvalidStructureException($path, "string", $input);
                 return (string)$input;
             case "int":
                 return (int)$input;
@@ -62,7 +64,7 @@ class PhoreHydrator
             case "mixed":
                 return $input;
             default:
-                throw new \InvalidArgumentException("Unrecognized internal type '{$this->type->type}'");
+                throw new InvalidStructureException($path, "any valid type", $this->type->type); 
         }
     }
 
@@ -192,7 +194,7 @@ class PhoreHydrator
     public function convert($input, array $path, array &$errors)
     {
         if ( ! $this->type->isObject && ! $this->type->isArray && ! $this->type->isMap) {
-            return $this->getInternalVal($input);
+            return $this->getInternalVal($input, $path);
         }
 
         if ($this->type->isArray) {
