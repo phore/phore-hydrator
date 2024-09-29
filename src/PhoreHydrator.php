@@ -64,7 +64,7 @@ class PhoreHydrator
             case "mixed":
                 return $input;
             default:
-                throw new InvalidStructureException($path, "any valid type", $this->type->type); 
+                throw new InvalidStructureException($path, "any valid type", $this->type->type);
         }
     }
 
@@ -162,8 +162,10 @@ class PhoreHydrator
             $subPropTypeParser = new self($targetType);
             $subPropTypeParser->options = $this->options;
             try {
-                if ($input[$curPropName] === null && $targetType->isNullable)
+                if ($input[$curPropName] === null && $targetType->isNullable) {
+                    $this->setObjectPropertyValue($prop->getName(), null, $obj);
                     continue;
+                }
                 $value = $subPropTypeParser->convert($input[$curPropName], $curPath, $errors);
                 if ($value === null && ! $targetType->isNullable) {
                     $errors[] = new InvalidStructureException($curPath, $this->type, $value);
