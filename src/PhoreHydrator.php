@@ -144,11 +144,14 @@ class PhoreHydrator
             $propertiesParsed[] = $curPropName;
 
             $targetType = $this->getTypeFromDocComment($prop->getDocComment(), $refClass);
-
+            
             if ( ! array_key_exists($curPropName, $input)) {
                 // Check default Properties. If they exist: Ignore the missing property
-                if (isset ($defaultProperties[$prop->getName()]))
+                if (array_key_exists($prop->getName(), $defaultProperties)){
+                    
+                    $this->setObjectPropertyValue($prop->getName(), $defaultProperties[$prop->getName()], $obj);
                     continue;
+                }
 
                 $typeString = $targetType->type;
                 if ($targetType->isMap)
@@ -157,6 +160,7 @@ class PhoreHydrator
                     $typeString = "{$targetType->type}[]";
                 if ( ! $targetType->isNullable)
                     throw new InvalidStructureException($curPath, $typeString, null);
+                $this->setObjectPropertyValue($prop->getName(), null, $obj);
                 continue;
             }
             $subPropTypeParser = new self($targetType);
