@@ -137,6 +137,9 @@ class PhoreHydrator
 
         $propertiesParsed = [];
         foreach ($ref->getProperties() as $prop) {
+            if ( str_starts_with($prop->getName(), "_"))
+                continue; // Ignore properties starting with _
+            
             $curPropName = $prop->getName();
             $curPath = $path;
             $curPath[] = $curPropName;
@@ -144,11 +147,11 @@ class PhoreHydrator
             $propertiesParsed[] = $curPropName;
 
             $targetType = $this->getTypeFromDocComment($prop->getDocComment(), $refClass);
-            
+
             if ( ! array_key_exists($curPropName, $input)) {
                 // Check default Properties. If they exist: Ignore the missing property
                 if (array_key_exists($prop->getName(), $defaultProperties)){
-                    
+
                     $this->setObjectPropertyValue($prop->getName(), $defaultProperties[$prop->getName()], $obj);
                     continue;
                 }
