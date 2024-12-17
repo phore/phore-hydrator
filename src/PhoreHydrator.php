@@ -137,9 +137,7 @@ class PhoreHydrator
 
         $propertiesParsed = [];
         foreach ($ref->getProperties() as $prop) {
-            if ( str_starts_with($prop->getName(), "_"))
-                continue; // Ignore properties starting with _
-            
+                        
             $curPropName = $prop->getName();
             $curPath = $path;
             $curPath[] = $curPropName;
