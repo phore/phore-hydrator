@@ -146,6 +146,10 @@ class PhoreHydrator
 
             $targetType = $this->getTypeFromDocComment($prop->getDocComment(), $refClass);
 
+            if (($prop->isPrivate() || $prop->isProtected()) && str_starts_with($prop->getName(), "_" )) {
+                continue; // Ignore private properties starting with _
+            }    
+            
             if ( ! array_key_exists($curPropName, $input)) {
                 // Check default Properties. If they exist: Ignore the missing property
                 if (array_key_exists($prop->getName(), $defaultProperties)){
