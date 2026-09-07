@@ -9,7 +9,7 @@ Examples:
 Installation:
 
 ```
-composer install phore/hydrator
+composer require phore/hydrator
 ```
 
 ## Basic Example
