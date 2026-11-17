@@ -21,7 +21,11 @@
     ]
   },
   "minimum-stability": "dev",
+  "prefer-stable": true,
   "require-dev": {
-    "phore/tester": "*"
+    "phpspec/phpspec": "^8.3"
+  },
+  "scripts": {
+    "test": "phpspec run --no-interaction"
   }
 }
