@@ -12,6 +12,16 @@ Installation:
 composer install phore/hydrator
 ```
 
+## Tests
+
+The test suite uses PHPSpec and requires PHP 8.2 or newer for development.
+CI runs the specifications on PHP 8.2, 8.4 and 8.5.
+
+```sh
+composer install
+composer test
+```
+
 ## Basic Example
 
 ```php

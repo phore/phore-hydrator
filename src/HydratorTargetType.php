@@ -15,7 +15,7 @@ class HydratorTargetType
     public $isObject;
 
 
-    public static function FromString(string $typeDef=null, \ReflectionClass $reflectionClass=null) : self
+    public static function FromString(?string $typeDef=null, ?\ReflectionClass $reflectionClass=null) : self
     {
 
         $t = new self();

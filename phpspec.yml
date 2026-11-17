@@ -1,0 +1,6 @@
+suites:
+  hydrator:
+    namespace: Phore\Hydrator
+    psr4_prefix: Phore\Hydrator
+
+bootstrap: spec/bootstrap.php
